@@ -10,5 +10,7 @@
 
 @interface secondModel : NSObject
 @property (nonatomic,strong) NSString *secondcontnetstr;
+@property (nonatomic,strong) NSString *s_nicknamestr;
+@property (nonatomic,strong) NSString *s_tonicknamestr;
 
 @end

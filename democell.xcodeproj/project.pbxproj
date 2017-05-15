@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		534155B71EC9997B00FB28BE /* pinglunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 534155B61EC9997B00FB28BE /* pinglunCell.m */; };
 		53A89EDB1EC8321100A8089D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A89EDA1EC8321100A8089D /* main.m */; };
 		53A89EDE1EC8321100A8089D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A89EDD1EC8321100A8089D /* AppDelegate.m */; };
 		53A89EE11EC8321100A8089D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A89EE01EC8321100A8089D /* ViewController.m */; };
@@ -21,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		534155B41EC9455500FB28BE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		534155B51EC9997B00FB28BE /* pinglunCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinglunCell.h; sourceTree = "<group>"; };
+		534155B61EC9997B00FB28BE /* pinglunCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinglunCell.m; sourceTree = "<group>"; };
 		53A89ED61EC8321100A8089D /* democell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = democell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A89EDA1EC8321100A8089D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		53A89EDC1EC8321100A8089D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,7 +39,6 @@
 		53A89EF21EC8676200A8089D /* AFManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFManager.m; sourceTree = "<group>"; };
 		53A89EF41EC86F9700A8089D /* textCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textCell.h; sourceTree = "<group>"; };
 		53A89EF51EC86F9700A8089D /* textCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textCell.m; sourceTree = "<group>"; };
-		53A89EF71EC86FC600A8089D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		53A89EF81EC87FCE00A8089D /* firstModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = firstModel.h; sourceTree = "<group>"; };
 		53A89EF91EC87FCE00A8089D /* firstModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = firstModel.m; sourceTree = "<group>"; };
 		53A89EFB1EC883FB00A8089D /* secondModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondModel.h; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				53A89EE01EC8321100A8089D /* ViewController.m */,
 				53A89EF41EC86F9700A8089D /* textCell.h */,
 				53A89EF51EC86F9700A8089D /* textCell.m */,
+				534155B51EC9997B00FB28BE /* pinglunCell.h */,
+				534155B61EC9997B00FB28BE /* pinglunCell.m */,
 				53A89EF81EC87FCE00A8089D /* firstModel.h */,
 				53A89EF91EC87FCE00A8089D /* firstModel.m */,
 				53A89EFB1EC883FB00A8089D /* secondModel.h */,
@@ -111,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				53A89EDA1EC8321100A8089D /* main.m */,
-				53A89EF71EC86FC600A8089D /* PrefixHeader.pch */,
+				534155B41EC9455500FB28BE /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				53A89EE11EC8321100A8089D /* ViewController.m in Sources */,
 				53A89EDE1EC8321100A8089D /* AppDelegate.m in Sources */,
 				53A89EF61EC86F9700A8089D /* textCell.m in Sources */,
+				534155B71EC9997B00FB28BE /* pinglunCell.m in Sources */,
 				53A89EFA1EC87FCE00A8089D /* firstModel.m in Sources */,
 				53A89EDB1EC8321100A8089D /* main.m in Sources */,
 			);
@@ -319,6 +325,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -366,6 +373,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -386,6 +394,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = GZJLNU22Y5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/democell/PrefixHeader.pch";
 				INFOPLIST_FILE = democell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjungang.democell;
@@ -399,6 +409,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = GZJLNU22Y5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/democell/PrefixHeader.pch";
 				INFOPLIST_FILE = democell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjungang.democell;

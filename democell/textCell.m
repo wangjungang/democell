@@ -9,11 +9,14 @@
 #import "textCell.h"
 #import "firstModel.h"
 #import "secondModel.h"
+#import "pinglunCell.h"
 static NSString *textidentfid = @"textidentfid";
 @interface textCell()
 @property (nonatomic,strong) firstModel *fmodel;
 @property (nonatomic,strong) NSMutableArray *dataarr;
 @property (nonatomic,strong) secondModel *smodel;
+@property (nonatomic,strong) pinglunCell *cell;
+
 @end
 @implementation textCell
 
@@ -24,7 +27,8 @@ static NSString *textidentfid = @"textidentfid";
     {
         self.dataarr = [NSMutableArray array];
         [self.contentView addSubview:self.contentlab];
-        [self.contentView addSubview:self.texttable];
+        //[self.contentView addSubview:self.texttable];
+        [self setlayout];
     }
     return self;
 }
@@ -32,22 +36,51 @@ static NSString *textidentfid = @"textidentfid";
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.contentlab.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30);
-    self.texttable.frame = CGRectMake(0, 40, [UIScreen mainScreen].bounds.size.width, 120);
+    
 }
 
--(void)setcelldata:(firstModel *)model
+-(void)setlayout
+{
+    [self.contentlab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(14*HEIGHT_SCALE);
+        make.left.equalTo(self).with.offset(14*WIDTH_SCALE);
+        make.right.equalTo(self).with.offset(-14*WIDTH_SCALE);
+    }];
+//    [self.texttable mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.contentlab.mas_bottom).with.offset(14*HEIGHT_SCALE);
+//        make.left.equalTo(self).with.offset(14*WIDTH_SCALE);
+//        make.right.equalTo(self).with.offset(-14*WIDTH_SCALE);
+//    }];
+    
+}
+
+
+-(CGFloat )setcelldata:(firstModel *)model
 {
     self.fmodel = model;
+    self.contentlab.numberOfLines = 0;
+    self.contentlab.font = [UIFont systemFontOfSize:14];
+    model.contentstr = @"在自定义单元格上面，左边一个UILabel右边对齐显示标题，右边一个UITextField供用户输入内容。给UILabel添加了固定宽度约束，";
+    
+    self.contentlab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式
     self.contentlab.text = model.contentstr;
+    CGSize textsize= [model.contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-28*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    [self.contentlab sizeToFit];
+    [self.contentlab mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.height.mas_equalTo(textsize.height);
+    }];
+    
     
     for (int i = 0; i<model.pinglunarr.count; i++) {
-        self.smodel = [[secondModel alloc] init];
         NSDictionary *dit = [model.pinglunarr objectAtIndex:i];
-        self.smodel.secondcontnetstr = [dit objectForKey:@"content"];
-        [self.dataarr addObject:self.smodel.secondcontnetstr];
+        [self.dataarr addObject:dit];
     }
+    
+    [self layoutIfNeeded];
+    CGFloat hei = textsize.height;
+    self.cellheight = hei+28;
     [self.texttable reloadData];
+    return self.cellheight;
 }
 
 #pragma mark - getters
@@ -69,11 +102,27 @@ static NSString *textidentfid = @"textidentfid";
         _texttable = [[UITableView alloc] init];
         _texttable.dataSource = self;
         _texttable.delegate = self;
-        
+        _texttable.scrollEnabled = NO;
     }
     return _texttable;
 }
 
+#pragma mark - UITableViewDataSource&&UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    pinglunCell *cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
+    NSMutableArray *arr = [cell pinglundata:self.dataarr];
+    NSString *contentstr = arr[indexPath.row];
+    CGSize textsize= [contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
+    [self.texttable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo((textsize.height+16)*arr.count);
+    }];
+    
+    return textsize.height+16;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -82,10 +131,19 @@ static NSString *textidentfid = @"textidentfid";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textidentfid];
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
-//    cell.textLabel.text = @"评论区域";
-    cell.textLabel.text = self.dataarr[indexPath.row];
+    pinglunCell *cell = [tableView dequeueReusableCellWithIdentifier:textidentfid];
+    cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
+    NSMutableArray *arr = [cell pinglundata:self.dataarr];
+    cell.pinglunlab.text = arr[indexPath.row];
+    NSString *contentstr = arr[indexPath.row];
+    CGSize textsize= [contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    cell.pinglunlab.backgroundColor = [UIColor lightGrayColor];
+    cell.pinglunlab.font = [UIFont systemFontOfSize:14];
+    cell.pinglunlab.numberOfLines = 0;
+    [cell.pinglunlab sizeToFit];
+    [cell.pinglunlab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(textsize.height);
+    }];
     return cell;
 }
 

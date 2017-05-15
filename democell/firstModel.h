@@ -12,4 +12,6 @@
 @property (nonatomic,strong) NSString *contentstr;
 @property (nonatomic,strong) NSMutableArray *pinglunarr;
 
+
+
 @end

@@ -42,7 +42,7 @@ static NSString *kcellname = @"name1";
 
 -(void)loaddatafromweb
 {
-    NSString *urlstr = @"http://np.iwenyu.cn/forum/index/detail.html?id=918&page=1&token=3958956e3fd31dd65b111ad33fb94eec";
+    NSString *urlstr = @"http://np.iwenyu.cn/forum/index/detail.html?id=918&page=1&token=f054925590e54922f592f3b232924e70";
     [AFManager getReqURL:urlstr block:^(id infor) {
         NSDictionary *infodit = [infor objectForKey:@"info"];
         NSArray *dicarr = [infodit objectForKey:@"all_comment"];
@@ -89,6 +89,9 @@ static NSString *kcellname = @"name1";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 220;
+   // textCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellname];
+    textCell * cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
+    return [cell setcelldata:self.datasourcearr[indexPath.row]];
 }
+
 @end

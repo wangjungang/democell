@@ -12,5 +12,7 @@
 @interface textCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UILabel *contentlab;
 @property (nonatomic,strong) UITableView *texttable;
--(void)setcelldata:(firstModel *)model;
+-(CGFloat )setcelldata:(firstModel *)model;
+
+@property (nonatomic,assign) CGFloat cellheight;
 @end
