@@ -27,7 +27,7 @@ static NSString *textidentfid = @"textidentfid";
     {
         self.dataarr = [NSMutableArray array];
         [self.contentView addSubview:self.contentlab];
-        //[self.contentView addSubview:self.texttable];
+        [self.contentView addSubview:self.texttable];
         [self setlayout];
     }
     return self;
@@ -46,11 +46,11 @@ static NSString *textidentfid = @"textidentfid";
         make.left.equalTo(self).with.offset(14*WIDTH_SCALE);
         make.right.equalTo(self).with.offset(-14*WIDTH_SCALE);
     }];
-//    [self.texttable mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.contentlab.mas_bottom).with.offset(14*HEIGHT_SCALE);
-//        make.left.equalTo(self).with.offset(14*WIDTH_SCALE);
-//        make.right.equalTo(self).with.offset(-14*WIDTH_SCALE);
-//    }];
+    [self.texttable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentlab.mas_bottom).with.offset(14*HEIGHT_SCALE);
+        make.left.equalTo(self).with.offset(14*WIDTH_SCALE);
+        make.right.equalTo(self).with.offset(-14*WIDTH_SCALE);
+    }];
     
 }
 
@@ -60,17 +60,14 @@ static NSString *textidentfid = @"textidentfid";
     self.fmodel = model;
     self.contentlab.numberOfLines = 0;
     self.contentlab.font = [UIFont systemFontOfSize:14];
-    model.contentstr = @"在自定义单元格上面，左边一个UILabel右边对齐显示标题，右边一个UITextField供用户输入内容。给UILabel添加了固定宽度约束，";
+   // model.contentstr = @"在自定义单元格上面，";
     
+    self.contentlab.preferredMaxLayoutWidth = (DEVICE_WIDTH - 14*2*WIDTH_SCALE);
+    [self.contentlab setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     self.contentlab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式
     self.contentlab.text = model.contentstr;
     CGSize textsize= [model.contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-28*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
     [self.contentlab sizeToFit];
-    [self.contentlab mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.height.mas_equalTo(textsize.height);
-    }];
-    
-    
     for (int i = 0; i<model.pinglunarr.count; i++) {
         NSDictionary *dit = [model.pinglunarr objectAtIndex:i];
         [self.dataarr addObject:dit];
@@ -135,15 +132,12 @@ static NSString *textidentfid = @"textidentfid";
     cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
     NSMutableArray *arr = [cell pinglundata:self.dataarr];
     cell.pinglunlab.text = arr[indexPath.row];
-    NSString *contentstr = arr[indexPath.row];
-    CGSize textsize= [contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
     cell.pinglunlab.backgroundColor = [UIColor lightGrayColor];
     cell.pinglunlab.font = [UIFont systemFontOfSize:14];
     cell.pinglunlab.numberOfLines = 0;
     [cell.pinglunlab sizeToFit];
-    [cell.pinglunlab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(textsize.height);
-    }];
+    cell.pinglunlab.preferredMaxLayoutWidth = (DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE);
+    [cell.pinglunlab setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     return cell;
 }
 

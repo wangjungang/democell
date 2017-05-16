@@ -37,7 +37,7 @@ static NSString *kcellname = @"name1";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.maintable.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64);
+    self.maintable.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 }
 
 -(void)loaddatafromweb
@@ -90,8 +90,9 @@ static NSString *kcellname = @"name1";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    // textCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellname];
-    textCell * cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
-    return [cell setcelldata:self.datasourcearr[indexPath.row]];
+    //textCell * cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
+    //return [cell setcelldata:self.datasourcearr[indexPath.row]]+20;
+    return 120;
 }
 
 @end
