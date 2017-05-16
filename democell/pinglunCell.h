@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface pinglunCell : UITableViewCell
 @property (nonatomic,strong) UILabel *pinglunlab;
 -(NSMutableArray *)pinglundata:(NSMutableArray *)pinglunarr;

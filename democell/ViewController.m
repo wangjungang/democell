@@ -10,7 +10,7 @@
 #import "AFManager.h"
 #import "textCell.h"
 #import "firstModel.h"
-@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,mycellVdelegate>
 @property (nonatomic,strong) UITableView *maintable;
 @property (nonatomic,strong) NSMutableArray *datasourcearr;
 
@@ -84,15 +84,23 @@ static NSString *kcellname = @"name1";
     textCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellname];
     cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
     [cell setcelldata:self.datasourcearr[indexPath.row]];
+    cell.delegate = self;
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   // textCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellname];
-    //textCell * cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
-    //return [cell setcelldata:self.datasourcearr[indexPath.row]]+20;
-    return 120;
+    //textCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellname];
+    textCell * cell = [[textCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kcellname];
+    return [cell setcelldata:self.datasourcearr[indexPath.row]]+cell.texttable.frame.size.height+20;
+
 }
+
+-(void)myTabVClick:(UITableViewCell *)cell datadic:(NSDictionary *)dic
+{
+    NSLog(@"dic=======%@",dic);
+}
+
 
 @end

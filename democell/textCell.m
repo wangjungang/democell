@@ -54,7 +54,6 @@ static NSString *textidentfid = @"textidentfid";
     
 }
 
-
 -(CGFloat )setcelldata:(firstModel *)model
 {
     self.fmodel = model;
@@ -109,13 +108,16 @@ static NSString *textidentfid = @"textidentfid";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    pinglunCell *cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
-    NSMutableArray *arr = [cell pinglundata:self.dataarr];
-    NSString *contentstr = arr[indexPath.row];
+//    pinglunCell *cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
+//    NSMutableArray *arr = [cell pinglundata:self.dataarr];
+    NSDictionary *dic = [self.dataarr objectAtIndex:indexPath.row];
+    NSString *contentstr = [dic objectForKey:@"content"];
+  
+    
     CGSize textsize= [contentstr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
     
     [self.texttable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo((textsize.height+16)*arr.count);
+        make.height.mas_equalTo((textsize.height+16)*self.dataarr.count);
     }];
     
     return textsize.height+16;
@@ -130,15 +132,22 @@ static NSString *textidentfid = @"textidentfid";
 {
     pinglunCell *cell = [tableView dequeueReusableCellWithIdentifier:textidentfid];
     cell = [[pinglunCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textidentfid];
-    NSMutableArray *arr = [cell pinglundata:self.dataarr];
-    cell.pinglunlab.text = arr[indexPath.row];
-    cell.pinglunlab.backgroundColor = [UIColor lightGrayColor];
+    NSDictionary *dic = [self.dataarr objectAtIndex:indexPath.row];
     cell.pinglunlab.font = [UIFont systemFontOfSize:14];
     cell.pinglunlab.numberOfLines = 0;
-    [cell.pinglunlab sizeToFit];
+    cell.pinglunlab.text = [dic objectForKey:@"content"];
+    cell.pinglunlab.lineBreakMode = NSLineBreakByCharWrapping;
+    cell.backgroundColor = [UIColor greenColor];
+    cell.pinglunlab.backgroundColor = [UIColor lightGrayColor];
     cell.pinglunlab.preferredMaxLayoutWidth = (DEVICE_WIDTH-64*WIDTH_SCALE-14*WIDTH_SCALE);
     [cell.pinglunlab setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    [cell.pinglunlab sizeToFit];
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dic = self.dataarr[indexPath.row];
+    [self.delegate myTabVClick:self datadic:dic];
+}
 @end

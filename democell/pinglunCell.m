@@ -33,16 +33,13 @@
 {
     NSMutableArray *heiarr = [NSMutableArray array];
     NSMutableArray *arr = pinglunarr;
-    
     secondModel *model = [[secondModel alloc] init];
     for (int i = 0; i<arr.count; i++) {
         NSDictionary *dit = [arr objectAtIndex:i];
         model.secondcontnetstr = [dit objectForKey:@"content"];
         model.s_nicknamestr = [dit objectForKey:@"s_nickname"];
         model.s_tonicknamestr = [dit objectForKey:@"s_to_nickname"];
-        
-        [heiarr addObject:model.secondcontnetstr];
-        
+        [heiarr addObject:model];
         [self layoutIfNeeded];
     }
     return heiarr;
